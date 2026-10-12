@@ -15,7 +15,10 @@ let package = Package(
             targets: ["StableDiffusion"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/ml-explore/mlx-swift", .upToNextMinor(from: "0.31.4")),
+        // fil-technology: widened from .upToNextMinor(from: 0.31.4) to admit mlx-swift 0.32.x. The esh graph
+        // pins mlx-swift 0.32.3 (required by mlx-swift-lm 3.31.4); the StableDiffusion/MNIST sources here build
+        // against 0.32.x unchanged. Only this constraint differs from upstream 378f2449.
+        .package(url: "https://github.com/ml-explore/mlx-swift", "0.31.4" ..< "0.33.0"),
 
         // Note: used by StableDiffusion library to download weights
         .package(
